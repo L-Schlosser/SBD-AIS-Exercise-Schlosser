@@ -40,7 +40,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Total"
                 ],
                 "parameters": [
                     {

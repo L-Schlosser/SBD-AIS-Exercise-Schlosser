@@ -9,9 +9,7 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {
-            "name": "LORENZ SCHLOSSER"
-        },
+        "contact": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -32,9 +30,12 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/model.Drink"
+                                "$ref": "#/definitions/Drink"
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -49,7 +50,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Total"
+                    "Order"
                 ],
                 "parameters": [
                     {
@@ -58,7 +59,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Order"
+                            "$ref": "#/definitions/Order"
                         }
                     }
                 ],
@@ -68,13 +69,16 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/api/order/all": {
             "get": {
-                "description": "Returns a Order",
+                "description": "Returns all orders",
                 "produces": [
                     "application/json"
                 ],
@@ -87,16 +91,19 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/model.Order"
+                                "$ref": "#/definitions/Order"
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
         },
         "/api/order/totalled": {
             "get": {
-                "description": "Returns Total orders",
+                "description": "Gets totalled orders",
                 "produces": [
                     "application/json"
                 ],
@@ -105,23 +112,37 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "integer",
-                                "format": "int64"
-                            }
-                        }
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "model.Drink": {
+        "DeletedAt": {
             "type": "object",
             "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "Drink": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/DeletedAt"
+                },
                 "description": {
                     "type": "string"
                 },
@@ -133,10 +154,13 @@ const docTemplate = `{
                 },
                 "price": {
                     "type": "number"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
         },
-        "model.Order": {
+        "Order": {
             "type": "object",
             "properties": {
                 "amount": {
@@ -145,9 +169,21 @@ const docTemplate = `{
                 "created_at": {
                     "type": "string"
                 },
+                "deletedAt": {
+                    "$ref": "#/definitions/DeletedAt"
+                },
+                "drink": {
+                    "$ref": "#/definitions/Drink"
+                },
                 "drink_id": {
-                    "description": "foreign key",
+                    "description": "Relationships\nforeign key",
                     "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
         }

@@ -1,0 +1,35 @@
+CREATE:
+But on Windows (and macOS), Docker Desktop runs Linux containers inside a tiny virtual machine (VM).
+When you use --network host, it connects to the VM’s localhost — not your Windows localhost.
+own network:
+<CMD> $ docker network create orders-net
+f0e4821c955e05cfcf38e73225d79603b30cf75f621f19ccc47f22d5be880677
+
+EXECUTE:
+
+run in git bash:
+grant rights:   <CMD> chmod +x run.sh
+exectue:        <CMD> ./run.sh
+
+
+
+TEST:
+
+see container -> 
+<CMD> docker ps
+CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS     NAMES
+4704541a1b59   postgres:18   "docker-entrypoint.s…"   9 seconds ago   Up 8 seconds             postgres18
+
+
+logs -> <CMD> docker logs postgres18 / orderservice
+
+HOW TO SEE THE TABLES:
+<CMD>$ docker exec -it postgres18 psql -U docker -d order
+SELECT * FROM ORDERS / DRINKS;
+
+API -> url: http://localhost:3000/openapi/index.html
+
+
+CLOSE:
+<CMD> docker stop orderservice postgres18 2>/dev/null || true
+<CMD> docker rm orderservice postgres18 2>/dev/null || true
