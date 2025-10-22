@@ -5,6 +5,10 @@ own network:
 <CMD> $ docker network create orders-net
 f0e4821c955e05cfcf38e73225d79603b30cf75f621f19ccc47f22d5be880677
 
+Multistaged Dockerfile:
+- uses multiple FROM statements to build a single image in stages
+- main idea -> separate the build environment from the runtime environment
+
 EXECUTE:
 
 run in git bash:

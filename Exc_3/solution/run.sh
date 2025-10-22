@@ -1,12 +1,7 @@
 #!/bin/sh
-set -e
 
 docker stop orderservice postgres18 2>/dev/null || true
 docker rm orderservice postgres18 2>/dev/null || true
-
-set -a
-. ./debug.env
-set +a
 
 # todo
 # docker build
@@ -14,8 +9,6 @@ docker build -t orderservice .
 echo "built"
 
 # docker run db
-
-  # --network host and no port
 docker run -d \
   --name postgres18 \
   --env-file ./debug.env \
@@ -25,10 +18,10 @@ docker run -d \
   postgres:18
 
 echo "run db"
-# docker run orderservice
+
 sleep 10
 
-#  -p 8080:8080 \
+# docker run orderservice:
 docker run -d \
   --name orderservice \
   --env-file ./debug.env \
@@ -36,3 +29,5 @@ docker run -d \
   -p 3000:3000 \
   orderservice:latest
 echo "run orderservice"
+
+echo "http://localhost:3000/openapi/index.html"
