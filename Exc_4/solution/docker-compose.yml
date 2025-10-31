@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres18
+    env_file:
+      - ./debug.env
+    networks:
+      - orders-net
+    volumes:
+      - pgdata:/var/lib/postgresql/18/docker
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  orderservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: orderservice
+    env_file:
+      - ./debug.env
+    depends_on:
+      - postgres
+    networks:
+      - orders-net
+    ports:
+      - "3000:3000"
+    command: ["/app/ordersystem"]
+    restart: unless-stopped
+
+networks:
+  orders-net:
+    driver: bridge  #would be default
+
+volumes:
+  pgdata:

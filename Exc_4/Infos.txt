@@ -1,0 +1,7 @@
+Todo: yml file and copy Dockerfile from EXC_3
+
+delete created network from exc_3 orders-net and recreate it in yml file
+
+
+RUN:
+docker compose up

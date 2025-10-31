@@ -37,3 +37,8 @@ API -> url: http://localhost:3000/openapi/index.html
 CLOSE:
 <CMD> docker stop orderservice postgres18 2>/dev/null || true
 <CMD> docker rm orderservice postgres18 2>/dev/null || true
+
+
+
+Viewer:
+connect with creadentials to pgAdmin -> open Task manager -> close PostgreSQL stuff -> connect to sbd server
