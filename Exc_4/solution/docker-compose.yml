@@ -20,12 +20,12 @@ services:
     env_file:
       - ./debug.env
     depends_on:
-      - postgres
+      - postgres    #waits just for container not for db
     networks:
       - orders-net
     ports:
       - "3000:3000"
-    command: ["/app/ordersystem"]
+    command: ["/app/ordersystem"] #also in DOCKERFILE specified
     restart: unless-stopped
 
 networks:
