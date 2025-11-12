@@ -47,7 +47,7 @@ func main() {
 
 	slog.Info("⚡⚡⚡ Order System is up and running ⚡⚡⚡")
 	slog.Info("http://localhost")
-	slog.Info("http://orders.localhost/")
+	slog.Info("http://orders.localhost/openapi/index.html")
 	err = http.ListenAndServe(":3000", r)
 	if err != nil {
 		log.Fatal(err)
