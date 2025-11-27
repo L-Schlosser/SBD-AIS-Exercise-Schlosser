@@ -1,0 +1,8 @@
+FROM joseluisq/static-web-server:latest
+
+ENV SERVER_PORT=80
+ENV SERVER_ROOT=/public
+
+COPY ./frontend /public
+
+EXPOSE 80
