@@ -18,7 +18,7 @@ docker swarm join --token <YOUR_TOKEN_HERE> 192.168.2.150:2377
 
 ### Check if the cluster has 3 nodes
 ```sh
-docker node ps
+docker node ls
 ```
 
 ### Log into github package registry
